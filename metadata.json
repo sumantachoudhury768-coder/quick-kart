@@ -1,0 +1,8 @@
+{
+  "name": "QuickKart",
+  "description": "Online grocery and daily essentials delivery platform for students, hostel residents, and families.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

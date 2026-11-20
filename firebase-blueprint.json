@@ -1,0 +1,463 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered QuickKart customer or administrator profile.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 160
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "role": {
+          "type": "string",
+          "enum": ["customer", "admin"]
+        },
+        "photoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "name", "email", "role", "createdAt", "updatedAt"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Trusted administrator UID allowlist managed outside client SDK.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 160
+        },
+        "grantedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "grantedAt"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Grocery product category shown in the storefront and filters.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "slug": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60,
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "image": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "displayOrder": {
+          "type": "integer"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["name", "slug", "description", "image", "displayOrder", "isActive", "createdAt", "updatedAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Grocery or daily essential catalog product stored in Firestore.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "categoryId": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "categoryName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "description": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 600
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "price": {
+          "type": "number"
+        },
+        "discountPrice": {
+          "type": "number"
+        },
+        "stock": {
+          "type": "integer"
+        },
+        "image": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "isFeatured": {
+          "type": "boolean"
+        },
+        "isSpecialOffer": {
+          "type": "boolean"
+        },
+        "isRecommended": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "name",
+        "categoryId",
+        "categoryName",
+        "description",
+        "unit",
+        "price",
+        "discountPrice",
+        "stock",
+        "image",
+        "isFeatured",
+        "isSpecialOffer",
+        "isRecommended",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Address": {
+      "title": "Address",
+      "description": "Customer saved delivery address including hostel or flat number.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "customerName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "mobile": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 15,
+          "pattern": "^[0-9+\\-\\s]{10,15}$"
+        },
+        "addressLine": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 240
+        },
+        "hostelOrFlat": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "landmark": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "city": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "pincode": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 10,
+          "pattern": "^[0-9]{6}$"
+        },
+        "isDefault": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "label",
+        "customerName",
+        "mobile",
+        "addressLine",
+        "hostelOrFlat",
+        "landmark",
+        "city",
+        "pincode",
+        "isDefault",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer grocery delivery order with status tracking.",
+      "type": "object",
+      "properties": {
+        "orderNumber": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 32,
+          "pattern": "^QK-[A-Z0-9\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "customerEmail": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 160
+        },
+        "mobile": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 15,
+          "pattern": "^[0-9+\\-\\s]{10,15}$"
+        },
+        "deliveryAddress": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 240
+        },
+        "hostelOrFlat": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "landmark": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "items": {
+          "type": "array"
+        },
+        "subtotal": {
+          "type": "number"
+        },
+        "deliveryCharge": {
+          "type": "number"
+        },
+        "discountAmount": {
+          "type": "number"
+        },
+        "couponCode": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "finalTotal": {
+          "type": "number"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "enum": ["Cash on Delivery"]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Order Placed",
+            "Confirmed",
+            "Preparing",
+            "Out for Delivery",
+            "Delivered",
+            "Cancelled"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "orderNumber",
+        "userId",
+        "customerName",
+        "customerEmail",
+        "mobile",
+        "deliveryAddress",
+        "hostelOrFlat",
+        "landmark",
+        "items",
+        "subtotal",
+        "deliveryCharge",
+        "discountAmount",
+        "couponCode",
+        "finalTotal",
+        "paymentMethod",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Coupon": {
+      "title": "Coupon",
+      "description": "Discount coupon applicable during cart and checkout.",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 24,
+          "pattern": "^[A-Z0-9]+$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "discountType": {
+          "type": "string",
+          "enum": ["percentage", "flat"]
+        },
+        "discountValue": {
+          "type": "number"
+        },
+        "minOrderAmount": {
+          "type": "number"
+        },
+        "maxDiscount": {
+          "type": "number"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "code",
+        "description",
+        "discountType",
+        "discountValue",
+        "minOrderAmount",
+        "maxDiscount",
+        "isActive",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Private customer and admin user profiles isolated by owner UID or admin."
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "Server-managed administrator allowlist."
+    },
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Public grocery catalog categories managed by admins."
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Public grocery product catalog managed by admins."
+    },
+    "/addresses/{addressId}": {
+      "schema": { "$ref": "#/entities/Address" },
+      "description": "Private customer delivery addresses isolated by userId."
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Private customer orders isolated by userId and managed by admins."
+    },
+    "/coupons/{couponId}": {
+      "schema": { "$ref": "#/entities/Coupon" },
+      "description": "Promotional discount coupons managed by admins."
+    }
+  }
+}
